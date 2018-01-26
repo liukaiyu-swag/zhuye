@@ -27,7 +27,6 @@ $(".about_papgs li").click(function(){
 	$(this).addClass("active")
 	$(".about_right .about_con").removeClass("active").eq(index).addClass("active")
 })
-console.log($(".about_right div"))
 {
 	let scroll=document.querySelector(".home_mouse .scroll")
 	let top=4
@@ -61,5 +60,63 @@ console.log($(".about_right div"))
 			$(".scene ul"). transition({
 				rotateY:"-=60"
 			})
+		})
+}
+{
+	let canvas = document.querySelectorAll(".skill_right canvas")
+	let scenes=document.querySelectorAll(".scene ul li")
+		function progress(canvas,max,color="deepskyblue") {
+			let cobj = canvas.getContext("2d")
+			cobj.lineWidth = 18
+			cobj.lineCap = "round"
+			cobj.strokeStyle = color
+			cobj.font = "30px 微软雅黑"
+			cobj.textAlign = "center"
+			cobj.textBaseline = "middle"
+			cobj.fillStyle = "white"
+			let n = 0
+			function fn() {
+				n++
+				if(n < max) {
+					requestAnimationFrame(fn)
+				}
+				cobj.clearRect(0, 0, 200, 200)
+				let angle = 2 * Math.PI * n / 100 - Math.PI / 2
+				cobj.save()
+				cobj.shadowColor="#FFFFFF"
+				cobj.shadowBlur="10"
+				cobj.beginPath()
+				cobj.arc(100, 100, 60, -Math.PI / 2, angle)
+				cobj.stroke()
+				cobj.restore()
+				cobj.fillText(n + "%", 100, 100)
+			}
+			fn()
+		}
+		scenes.forEach(function(e,index){
+			e.onclick=function(){
+				for(let i=0;i<canvas.length;i++){
+					canvas[i].classList.remove("active")
+				}
+				canvas[index].classList.add("active")
+				if(index===0){
+				progress(canvas[0],80,"red")
+				}
+				if(index===1){
+				progress(canvas[1],85,"yellow")
+				}
+				if(index===2){
+				progress(canvas[2],85,"SlateBlue")
+				}
+				if(index===3){
+				progress(canvas[3],70,"Cyan")
+				}
+				if(index===4){
+				progress(canvas[4],65,"	Lime")
+				}
+				if(index===5){
+				progress(canvas[5],60,"OrangeRed")
+				}
+			}
 		})
 }
